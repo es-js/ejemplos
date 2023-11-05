@@ -1,0 +1,28 @@
+importar { Terminal } desde "@es-js/terminal"
+importar { prueba, afirmar } desde "@es-js/prueba"
+
+// Variable de tipo global
+global miVariableGlobal = 10
+
+// Variable de tipo local
+funcion miFuncion() {
+  var miVariableLocal = 20
+
+  // Acceso a la variable global
+  Terminal.escribir("Variable global: " + miVariableGlobal)
+
+  // Acceso a la variable local
+  Terminal.escribir("Variable local: " + miVariableLocal)
+}
+
+// Acceso a la variable global
+prueba("miVariableGlobal es igual a 10", funcion () {
+  afirmar(miVariableGlobal === 10)
+})
+
+// La variable local no es accesible desde fuera de la funcion
+prueba("variableLocal es indefinida", funcion () {
+  afirmar(tipoDe variableLocal === "undefined")
+})
+
+miFuncion()

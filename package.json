@@ -1,0 +1,17 @@
+{
+  "name": "esjs-ejemplos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@es-js/core": "0.0.19-alpha.1",
+    "prettier": "^3.0.3",
+    "prettier-plugin-esjs": "0.0.1-alpha.0"
+  }
+}

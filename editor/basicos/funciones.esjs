@@ -1,0 +1,75 @@
+importar { Terminal } desde "@es-js/terminal"
+
+funcion obtenerAleatorio(minimo, maximo) {
+  retornar Mate.redondearHaciaAbajo(Mate.aleatorio() * (maximo - minimo) + minimo)
+}
+
+asincrono funcion solicitarMonedas(saldo) {
+  const numero = Numero(
+    esperar Terminal.leerNumero(
+      "Ingresa la cantidad de monedas que quieres apostar: "
+    )
+  )
+
+  si (Numero.esNuN(numero)) {
+    Terminal.escribir("Debes ingresar un número")
+    retornar esperar solicitarMonedas()
+  }
+
+  si (numero > saldo) {
+    Terminal.escribir("No tienes suficientes monedas")
+    retornar esperar solicitarMonedas(saldo)
+  }
+
+  retornar numero
+}
+
+asincrono funcion juego(monedas) {
+  const numero1 = obtenerAleatorio(0, 10)
+  const numero2 = obtenerAleatorio(0, 10)
+  const numero3 = obtenerAleatorio(0, 10)
+
+  Terminal.escribir(`Los números son: ${numero1}, ${numero2}, ${numero3}`)
+
+  si (numero1 === numero2 && numero2 === numero3) {
+    Terminal.escribir("¡Ganaste!")
+    Terminal.escribir(`Ganaste ${monedas * 10} monedas`)
+
+    retornar monedas * 10
+  } sino si (
+    numero1 === numero2 ||
+    numero2 === numero3 ||
+    numero1 === numero3
+  ) {
+    Terminal.escribir("¡Casi!")
+    Terminal.escribir(`Ganaste ${monedas * 2} monedas`)
+
+    retornar monedas * 2
+  } sino {
+    Terminal.escribir("¡Perdiste!")
+
+    retornar -monedas
+  }
+}
+
+asincrono funcion inicio() {
+  var saldo = 100
+
+  Terminal.escribir("Hola! este es un juego de azar")
+
+  mientras (saldo > 0) {
+    Terminal.escribir(`Tienes ${saldo} monedas
+
+	  - Si los tres números son iguales ganas 10 veces lo que apostaste
+	  - Si dos números son iguales ganas 2 veces lo que apostaste
+	  - Si no hay números iguales pierdes lo que apostaste
+
+	  `)
+
+    const monedas = esperar solicitarMonedas(saldo)
+
+    saldo += esperar juego(monedas)
+  }
+}
+
+inicio()
