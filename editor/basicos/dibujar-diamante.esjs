@@ -1,0 +1,14 @@
+const limite = 15
+
+mut contar = 1
+
+consola.escribir(
+  Matriz(limite)
+    .llenar(0)
+    .reducir((acumulador, _, indice) => {
+      const espacios = " ".repetir(Mate.absoluto(limite - contar) / 2)
+      const estrellas = "*".repetir(contar) + "\n"
+      indice >= Mate.redondearHaciaAbajo(limite / 2) ? (contar -= 2) : (contar += 2)
+      retornar `${acumulador}${espacios}${estrellas}`
+    }, "\n")
+)

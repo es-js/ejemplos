@@ -2,11 +2,11 @@ importar { Terminal } desde "@es-js/terminal"
 importar { prueba, afirmar } desde "@es-js/prueba"
 
 // Variable de tipo global
-global miVariableGlobal = 10
+var miVariableGlobal = 10
 
 // Variable de tipo local
 funcion miFuncion() {
-  var miVariableLocal = 20
+  mut miVariableLocal = 20
 
   // Acceso a la variable global
   Terminal.escribir("Variable global: " + miVariableGlobal)
