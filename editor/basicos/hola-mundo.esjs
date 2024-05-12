@@ -1,5 +1,1 @@
-importar { Terminal } desde "@es-js/terminal"
-
-Terminal.escribir("Hola mundo!")
-
-consola.escribir("Hola consola!")
+consola.escribir("¡Hola, mundo!")
