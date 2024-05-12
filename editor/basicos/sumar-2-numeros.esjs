@@ -1,0 +1,5 @@
+funcion sumar(a, b) {
+  retornar a + b
+}
+
+consola.escribir(sumar(5, 3)) // Salida: 8
