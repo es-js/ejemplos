@@ -1,0 +1,42 @@
+funcion congruenciaZeller(dia, mes, año) {
+  si (mes < 3) {
+    mes += 12
+    año--
+  }
+
+  const k = año % 100
+  const j = Mate.redondearHaciaAbajo(año / 100)
+
+  // Fórmula de la Congruencia de Zeller
+  const h =
+    (dia +
+      Mate.redondearHaciaAbajo((13 * (mes + 1)) / 5) +
+      k +
+      Mate.redondearHaciaAbajo(k / 4) +
+      Mate.redondearHaciaAbajo(j / 4) -
+      2 * j) %
+    7
+
+  const diasDeLaSemana = [
+    "Sábado",
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+  ]
+
+  retornar diasDeLaSemana[(h + 7) % 7]
+}
+
+// Ejemplo de uso
+const hoy = crear Fecha()
+
+const diaSemana = congruenciaZeller(
+  hoy.obtenerDia(),
+  hoy.obtenerMes() + 1, // obtenerMes() devuelve un valor entre 0 y 11
+  hoy.obtenerAño()
+)
+
+consola.escribir("Día de la semana:", diaSemana)
