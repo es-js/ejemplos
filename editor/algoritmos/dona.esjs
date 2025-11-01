@@ -1,0 +1,56 @@
+mut anguloA = 0;
+mut anguloB = 0;
+
+const dibujar = () => {
+    mut pantalla = [];
+    mut profundidad = [];
+
+    anguloA += 0.05;
+    anguloB += 0.07;
+
+    const cosA = Mate.coseno(anguloA);
+    const sinA = Mate.seno(anguloA);
+    const cosB = Mate.coseno(anguloB);
+    const sinB = Mate.seno(anguloB);
+
+    // Inicializar buffers
+    // Cada línea tiene 80 caracteres; 22 líneas en total (80x22 ≈ 1760)
+    para (mut i = 0; i < 1760; i++) {
+        pantalla[i] = i % 80 === 79 ? '\n' : ' ';
+        profundidad[i] = 0;
+    }
+
+    para (mut theta = 0; theta < 6.28; theta += 0.07) {
+        // Ángulo alrededor del toro
+        const cosTheta = Mate.coseno(theta);
+        const sinTheta = Mate.seno(theta);
+
+        para (mut phi = 0; phi < 6.28; phi += 0.02) {
+            // Ángulo alrededor del tubo
+            const sinPhi = Mate.seno(phi);
+            const cosPhi = Mate.coseno(phi);
+
+            const radioTubo = cosTheta + 2;
+            const inversoZ = 1 / (sinPhi * radioTubo * sinA + sinTheta * cosA + 5);
+            const z = sinPhi * radioTubo * cosA - sinTheta * sinA;
+
+            const x = 40 + 30 * inversoZ * (cosPhi * radioTubo * cosB - z * sinB) | 0;
+            const y = 12 + 15 * inversoZ * (cosPhi * radioTubo * sinB + z * cosB) | 0;
+            const indice = x + 80 * y;
+
+            const brillo = 8 * ((sinTheta * sinA - sinPhi * cosTheta * cosA) * cosB - sinPhi * cosTheta * sinA - sinTheta * cosA - cosPhi * cosTheta * sinB) | 0;
+
+            si (y < 22 && y >= 0 && x >= 0 && x < 79 && inversoZ > profundidad[indice]) {
+                // Elegimos el caracter del brillo segun el valor de brillo
+                profundidad[indice] = inversoZ;
+                pantalla[indice] = '.,-~:;=!*#$@'[brillo > 0 ? brillo : 0];
+            }
+        }
+    }
+
+    consola.limpiar()
+    consola.escribir(pantalla.juntar(""))
+};
+
+// Ejecutar animación cada 50 ms
+const intervalo = establecerIntervalo(dibujar, 50);
