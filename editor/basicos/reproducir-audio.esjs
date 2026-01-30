@@ -1,0 +1,27 @@
+importar { Terminal } desde "@es-js/terminal"
+importar { tiza } desde "@es-js/tiza"
+
+asincrono funcion principal() {
+  Terminal.limpiar()
+  Terminal.escribir(tiza.verde("🎵 Reproducción de Audio en EsJS"))
+  Terminal.escribir("*".repetir(50))
+
+  const audio = crear Audio(
+    "https://cdn.freesound.org/previews/186/186942_2594536-lq.mp3"
+  )
+
+  audio.controles = verdadero
+  audio.bucle = verdadero
+
+  Terminal.escribir("Presiona Enter para reproducir...")
+  esperar Terminal.leerEnter()
+
+  audio.reproducir()
+  Terminal.escribir(tiza.verde("✅ Audio reproduciéndose"))
+
+  Terminal.escribir("Presiona Enter para pausar...")
+  esperar Terminal.leerEnter()
+  audio.pausar()
+}
+
+principal()
